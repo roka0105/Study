@@ -11,7 +11,7 @@ namespace make_excel
 		static void Main(string[] arg)
 		{
 			string filepath =
-				@"C:\Users\user\OneDrive\바탕 화면\Table_List";
+				@"C:\Users\user\Desktop\Table_List";
 
 			string filename = "01_Devil_Table.xlsx";
 			string sheetname ="Devil_Table";
@@ -19,6 +19,7 @@ namespace make_excel
 				filepath+="\\";
 			ExcelReader excel = new ExcelReader();
 			excel._Initialize(filepath + filename);
+			excel.ReadSheet(sheetname);
 		}
 	}
 	class ExcelReader
@@ -110,20 +111,196 @@ namespace make_excel
 			}
 		}
 		public void ReadSheet(string sheetName)
-		{
+		{   //원하는 시트 정보 불러오기
+			Excel.Worksheet sheet = m_workbook.Worksheets.get_Item(sheetName);
+			#region 읽어들일 정보의 구역 정보 가져오기
+			Excel.HPageBreak hPagebreak_start = sheet.HPageBreaks[1];
+			Excel.HPageBreak hPagebreak_end = sheet.HPageBreaks[2];
+			Excel.VPageBreak vPagebreak_start = sheet.VPageBreaks[1];
+			Excel.VPageBreak vPagebreak_end=sheet.VPageBreaks[2];
+			#endregion
+			#region 구역정보를 통해 읽어들일 셀의 범위 정보 저장.
+			Excel.Range hbreak_start_range = hPagebreak_start.Location;
+			Excel.Range hbreak_end_range = hPagebreak_end.Location;
+			Excel.Range vbreak_start_range = vPagebreak_start.Location;
+			Excel.Range vbreak_end_range=vPagebreak_end.Location;
+			#endregion
 
+			WriteFile(sheet,vbreak_start_range.Column, vbreak_end_range.Column, hbreak_start_range.Row, hbreak_end_range.Row);
+
+			DeleteObj(hbreak_start_range);
+			DeleteObj(hbreak_end_range);
+			DeleteObj(vbreak_start_range);
+			DeleteObj(vbreak_end_range);
+			DeleteObj(hPagebreak_start);
+			DeleteObj(hPagebreak_end);
+			DeleteObj(vPagebreak_start);
+			DeleteObj(vPagebreak_end);
+			DeleteObj(sheet);
 		}
 		void WriteFile(Excel.Worksheet sheet,int left,int right,int top,int bottom)
 		{
+			int idx = filepath.LastIndexOf("\\");
+			string sheetName = sheet.Name;
+			string structName = sheetName + "Excel";
+			string savepath_cs = System.IO.Path.Combine(filepath.Substring(0, idx), structName + "Loader" + ".cs");
+			string savepath_txt = System.IO.Path.Combine(filepath.Substring(0, idx), sheetName + ".txt");
+
+			StringBuilder sb = new StringBuilder();
+
+			List<string>types=new List<string>();
+			List<string> names = new List<string>();
+			#region unity cs 파일 생성
+			sb.Length = 0;
+			#region include
+			sb.Append("using System.Collections.Generic;\n");
+			sb.Append("using UnityEngine;\n\n");
+			#endregion
+			#region struct 생성
+			sb.Append("[Sysyem.Serializable]\n");
+			sb.Append("public struct ");
+			sb.Append(structName);
+			sb.Append("\n{\n");
+			
+		    for(int i=left;i<right;i++)
+			{   
+				//뽑아올 데이터의 형 (int string float) 문자열을 뽑아온다.
+				Excel.Range typename_range = sheet.Cells[top + 1, i];
+				Excel.Range dataname_range = sheet.Cells[top, i];
+
+				string typename=typename_range.Value2.ToString();
+				string dataname=dataname_range.Value2.ToString();
+				types.Add(typename);
+				names.Add(dataname);
+
+				sb.Append("\tpublic ");
+				sb.Append(typename);
+				sb.Append(' ');
+				sb.Append(dataname);
+				sb.Append(";\n");
+
+				//*사용한 excel객체는 그때그때 반환해줘야 한다.
+				DeleteObj(typename_range);
+				DeleteObj(dataname_range);
+			}
+			sb.Append("}\n\n");
+			#endregion
+			sb.Append("\n\n/*====================================*/\n\n");
+			#region scriptable object && [CreateAssetMenu]
+			sb.Append("[CreateAssetMenu(fileName=\"" + sheetName + "Loader" + "\", menuName= " + "\"Scriptable Object/" + sheetName + "Loader" + "\")]\n");
+			sb.Append("public class " + structName + "Loader " + ":ScriptableObject\n");
+			sb.Append("{\n");
+
+			string tab = "";
+			tab += '\t';
+			//member
+			sb.Append(tab + "[SerializeField] string filepath;\n");
+			sb.Append(tab + "public List<" + structName + "> DataList;\n\n");
+			//read func
+			sb.Append(tab + "private " + structName + " Read(string line)\n");
+			sb.Append(tab + "{\n");
+			
+			tab += '\t';
+			sb.Append(tab + "line = line.TrimStart('\n');\n\n");
+
+			sb.Append(tab + structName + " data = new "+structName+"();\n");
+			sb.Append(tab + "int idx =0;\n");
+			sb.Append(tab + "string[] strs= line.Split('`');\n\n");
+
+			for(int i=0;i<names.Count;++i)
+			{
+				//member data set
+				switch(types[i])
+				{
+					case "string":
+						sb.Append(tab + "data." + names[i] + " = strs[idx++];");
+						break;
+					default:
+						sb.Append(tab + "data." + names[i] + " = " + types[i] + ".Parse(strs[idx++]);");
+						break;
+				}
+				sb.Append("\n");
+			}
+			sb.Append("\n");
+			sb.Append(tab + "return data;\n");
+			tab = tab.Remove(tab.Length - 1);
+			sb.Append(tab + "}\n");
+			#endregion
+			#region file read all (파일의 모든 정보 읽어오기)
+			sb.Append(tab + "[ContextMenu(\"파일 읽기\")]\n");
+			sb.Append(tab + "public void ReadAllFile()\n");
+			sb.Append(tab + "{\n");
+
+			tab += '\t';
+			sb.Append(tab + "DataList=new List<" + structName + ">();\n\n");
+
+			sb.Append(tab + "string currentpath = System.IO.Directory.GetCurrentDirectory();\n");
+			sb.Append(tab + "string allText = System.IO.File.ReadAllText(System.IO.Path.Combine(currentpath,filepath));\n");
+			sb.Append(tab + "string[] strs = allText.Split(';');\n\n)");
+
+			sb.Append(tab + "foreach (var item in strs)\n");
+			sb.Append(tab + "{\n");
+			tab += '\t';
+			sb.Append(tab + "if(item.Length<2)\n");
+			sb.Append(tab + '\t' + "continue;\n");
+			sb.Append(tab + structName + " data = Read(item);\n");
+			sb.Append(tab + "DataList.Add(data);\n");
+			tab=tab.Remove(tab.Length - 1);
+			sb.Append(tab + "}\n");
+			tab = tab.Remove(tab.Length - 1);
+			sb.Append(tab + "}\n");
+			tab = tab.Remove(tab.Length - 1);
+			sb.Append(tab + "}\n");
+			//해당 문자열을 담은 .cs 파일을 만들어서 저장.
+			CreateFile(savepath_cs);
+			SaveFile(savepath_cs, sb.ToString());
+			#endregion
+
+			#region file info -> txt // 파일 정보를 cvs 파일로 만들어 저장.
+			sb.Length = 0;
+			for(int i=top+2;i<bottom;++i)
+			{
+				for(int j=left;j<right;++j)
+				{
+					try
+					{
+						Excel.Range r = sheet.Cells[i, j];
+						sb.Append(r.Value2.ToString());
+						sb.Append('`');
+						DeleteObj(r);
+					}
+					catch(Exception ex)//Exception 어플리케이션 실행도중 발생하는 오류목록.
+					{
+						Console.WriteLine(i + "번 줄, " + j + "번 칸");
+						throw;
+					}
+				}
+				//마지막 `를 지워줌
+				--sb.Length;
+				sb.Append(';');
+				sb.Append("\n");
+			}
+			//마지막 줄의 ; 를 지워줌
+			--sb.Length;
+			//txt 파일로 저장 = excel정보를 csv 파일로 변환하여 저장.
+			CreateFile(savepath_txt);
+			SaveFile(savepath_txt, sb.ToString());
+			#endregion
+			#endregion
 
 		}
 		void CreateFile(string path)
 		{
+			if(!System.IO.File.Exists(path))
+			{
+				FileStream stream=System.IO.File.Create(path);
+				stream.Close();
+			}
 
 		}
 		void SaveFile(string path,string text)
 		{
-
+			System.IO.File.WriteAllText(path, text);
 		}
 	}
 }

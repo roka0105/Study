@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\ExcelReaderTest\\ExcelReaderTest\\ExcelReaderTest.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Desktop\\Study\\엑셀로더 공부중\\ExcelReaderTest\\ExcelReaderTest\\ExcelReaderTest.csproj",
       "projectName": "ExcelReaderTest",
-      "projectPath": "C:\\Users\\user\\Desktop\\ExcelReaderTest\\ExcelReaderTest\\ExcelReaderTest.csproj",
+      "projectPath": "C:\\Users\\user\\Desktop\\Study\\엑셀로더 공부중\\ExcelReaderTest\\ExcelReaderTest\\ExcelReaderTest.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\ExcelReaderTest\\ExcelReaderTest\\obj\\",
+      "outputPath": "C:\\Users\\user\\Desktop\\Study\\엑셀로더 공부중\\ExcelReaderTest\\ExcelReaderTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
