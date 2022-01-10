@@ -11,15 +11,29 @@ namespace make_excel
 		static void Main(string[] arg)
 		{
 			string filepath =
-				@"C:\Users\user\Desktop\Table_List";
+				@"C:\Users\user\Desktop\Yggdrasil\ExcelData\Data_Table";
 
-			string filename = "01_Devil_Table.xlsx";
-			string sheetname ="Devil_Table";
-			if(!filepath.EndsWith("\\"))
+			#region 복사를 위한 테이블 명
+			/*
+			 * "Bosstable.xlsx"
+			 * "CharStat.xlsx"
+			*/
+			#endregion
+			#region 복사를 위한 시트 명
+			/*
+			 * "BossStat_Table"
+			 * "CharStat_Table"
+			*/
+			#endregion
+
+			string filename = "Bosstable.xlsx";
+			string sheetname = "BossStat_Table";
+			if (!filepath.EndsWith("\\"))
 				filepath+="\\";
 			ExcelReader excel = new ExcelReader();
 			excel._Initialize(filepath + filename);
 			excel.ReadSheet(sheetname);
+			excel._Finalize();
 		}
 	}
 	class ExcelReader
@@ -132,11 +146,12 @@ namespace make_excel
 			DeleteObj(hbreak_end_range);
 			DeleteObj(vbreak_start_range);
 			DeleteObj(vbreak_end_range);
+			DeleteObj(sheet);
 			DeleteObj(hPagebreak_start);
 			DeleteObj(hPagebreak_end);
 			DeleteObj(vPagebreak_start);
 			DeleteObj(vPagebreak_end);
-			DeleteObj(sheet);
+			
 		}
 		void WriteFile(Excel.Worksheet sheet,int left,int right,int top,int bottom)
 		{
@@ -201,7 +216,7 @@ namespace make_excel
 			sb.Append(tab + "{\n");
 			
 			tab += '\t';
-			sb.Append(tab + "line = line.TrimStart('\n');\n\n");
+			sb.Append(tab + "line = line.TrimStart('\\n');\n\n");
 
 			sb.Append(tab + structName + " data = new "+structName+"();\n");
 			sb.Append(tab + "int idx =0;\n");
@@ -255,7 +270,7 @@ namespace make_excel
 			CreateFile(savepath_cs);
 			SaveFile(savepath_cs, sb.ToString());
 			#endregion
-
+#endregion
 			#region file info -> txt // 파일 정보를 cvs 파일로 만들어 저장.
 			sb.Length = 0;
 			for(int i=top+2;i<bottom;++i)
@@ -286,7 +301,7 @@ namespace make_excel
 			CreateFile(savepath_txt);
 			SaveFile(savepath_txt, sb.ToString());
 			#endregion
-			#endregion
+			
 
 		}
 		void CreateFile(string path)
