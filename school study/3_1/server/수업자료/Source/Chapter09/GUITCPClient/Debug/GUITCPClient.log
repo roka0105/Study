@@ -1,0 +1,4 @@
+﻿  GUITCPClient.cpp
+F:\학교수업\2학년 2학기\서버네트워크\수업자료\Source\Chapter09\GUITCPClient\GUITCPClient.cpp(112,2): warning C4996: 'vsprintf': This function or variable may be unsafe. Consider using vsprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\학교수업\2학년 2학기\서버네트워크\수업자료\Source\Chapter09\GUITCPClient\GUITCPClient.cpp(191,31): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  GUITCPClient.vcxproj -> F:\학교수업\2학년 2학기\서버네트워크\수업자료\Source\Chapter09\GUITCPClient\Debug\GUITCPClient.exe

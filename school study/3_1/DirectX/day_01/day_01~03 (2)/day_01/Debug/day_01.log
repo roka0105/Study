@@ -1,0 +1,7 @@
+﻿  CApplication.cpp
+  CWin.cpp
+C:\Users\user\Desktop\Study\school study\3_1\DirectX\day_01\day_01~03 (2)\day_01\CWin.cpp(71,17): warning C4477: 'sprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int *'입니다.
+C:\Users\user\Desktop\Study\school study\3_1\DirectX\day_01\day_01~03 (2)\day_01\CWin.cpp(71,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  main.cpp
+  코드를 생성하고 있습니다...
+  day_01.vcxproj -> C:\Users\user\Desktop\Study\school study\3_1\DirectX\day_01\day_01~03 (2)\Debug\day_01.exe

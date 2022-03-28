@@ -1,0 +1,5 @@
+﻿  TCPServer.cpp
+F:\학교수업\2학년 2학기\서버네트워크\수업자료\Source\Chapter04\TCPServer\TCPServer.cpp(84,4): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+F:\학교수업\2학년 2학기\서버네트워크\수업자료\Source\Chapter04\TCPServer\TCPServer.cpp(106,31): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+F:\학교수업\2학년 2학기\서버네트워크\수업자료\Source\Chapter04\TCPServer\TCPServer.cpp(124,4): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  TCPServer.vcxproj -> F:\학교수업\2학년 2학기\서버네트워크\수업자료\Source\Chapter04\TCPServer\Debug\TCPServer.exe

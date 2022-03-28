@@ -1,0 +1,485 @@
+#1
+package day3;
+
+public class ForSample 
+{
+
+	public static void main(String[] args) 
+	{
+		int sum=0;
+		for(int i=1;i<=10;i++)
+		{
+			sum+=i;
+			//1~9 출력
+			System.out.print(i);
+			if(i<=9) System.out.print("+");
+			//10인 경우
+			else
+			{
+				System.out.print("=");
+				System.out.print(sum);
+			}
+		}
+		
+
+	}
+
+}
+#2
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+
+	public static void main(String[] args) 
+	{
+		int count=0;
+		int sum=0;
+		Scanner scanner=new Scanner(System.in);
+		System.out.println("정수를 입력하고 마지막에 -1을 입력하세요.");
+		
+		int n=scanner.nextInt();
+		while(n!=-1)
+		{
+			sum+=n;
+			count++;
+			n=scanner.nextInt();
+		}
+		if(count==0) System.out.println("입력된 수가 없습니다.");
+		else 
+		{
+			System.out.print("정수의 개수는 "+ count+"개이며");
+			System.out.println("평균은 "+(double)sum/count+"입니다");
+		}
+		scanner.close();
+		
+
+	}
+
+}
+*print와 println 차이 print 줄바꿈 x println 줄바꿈 o
+#3
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+
+	public static void main(String[] args) 
+	{
+		char c='a';
+		do
+		{
+			System.out.print(c);
+			c=(char)(c+1);
+		}while(c<='z');
+
+	}
+
+}
+#4
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+
+	public static void main(String[] args) 
+	{
+		for(int i=1;i<10;i++)
+		{
+			for(int j=1;j<10;j++)
+			{
+				System.out.print(i+"*"+j+"="+i*j);
+				System.out.print('\t');
+			}
+			System.out.println('\n');
+		}
+	}
+
+}
+
+#5
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+
+	public static void main(String[] args) 
+	{
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("정수를 5개 입력하세요.");
+		int sum=0;
+		for(int i=0;i<5;i++)
+		{
+			int n=scanner.nextInt();
+			if(n<=0)
+				continue;
+			else sum+=n;
+		}
+		System.out.println("양수의 합은 "+sum);
+		scanner.close();
+	}
+
+}
+#6
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+
+	public static void main(String[] args) 
+	{
+		Scanner scanner=new Scanner(System.in);
+		System.out.println("exit을 입력하면 종료합니다.");
+		while(true)
+		{
+			System.out.print(">>");
+			String text=scanner.nextLine();
+			if(text.equals("exit"))
+				break;
+		}
+		System.out.println("종료합니다..");
+		scanner.close();
+	}
+
+}
+*배열*
+java 의 레퍼런스는 힙영역에 생기고 메소드를 위한 stack프레임에 저장하고 사용.
+main메소드를 위한 stack영역에 i 변수에 대한 공간을 만들고 힙에서 할당받은 1000이 담긴 주소를
+stack i에서 참조하여 대입합니다.
+
+int intArray[]; int [] intArray; 둘다 사용 가능
+
+int intArray[]; ->사용 가능. new 하고나서 사용 가능.
+intArray=new int[5];  (new 인스턴스를 생성한다는 의미)
+
+int intArray[10] ->이거는 안됨.
+
+i.length (배열크기)
+
+#7
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+
+	public static void main(String[] args) 
+	{
+		Scanner scanner=new Scanner(System.in);
+		
+		int intArray[]=new int [5];
+		
+		int max=0;
+		System.out.println("양수 5개를 입력하세요.");
+		for(int i=0;i<5;i++)
+		{
+			intArray[i]=scanner.nextInt();
+		   	if(intArray[i]>max)
+		   		max=intArray[i];
+		}
+		System.out.print("가장 큰 수는 "+max+"입니다.");
+		scanner.close();
+	}
+
+}
+
+#8
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+
+	public static void main(String[] args) 
+	{
+		int intArray[]=new int[5];
+		int sum=0;
+		
+		Scanner scanner=new Scanner(System.in);
+		System.out.print(intArray.length+"개의 정수를 입력하세요>>");
+	    
+		for(int i=0;i<intArray.length;i++)
+			intArray[i]=scanner.nextInt();
+		for(int i=0;i<intArray.length;i++)
+			sum+=intArray[i];
+		
+		System.out.print("평균은 "+(double)sum/intArray.length);
+		scanner.close();
+	}
+
+}
+
+for(int k:num) foreach와 같음 배열에서 하나씩 빼와서 k에 넣음
+#9
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+    enum Week{월,화,수,목,금,토,일}
+	public static void main(String[] args) 
+	{ 
+	
+		int [] n= {1,2,3,4,5};
+		String names[]= {"사과","배","바나나","체리","딸기","포도"};
+		
+		int sum=0;
+		for(int k:n)
+		{
+			System.out.print(k+" ");
+			sum+=k;
+		}
+		System.out.println("합은"+sum);
+		
+		for(String s:names)
+			System.out.print(s+" ");
+		System.out.println();
+		
+		for(Week day:Week.values())
+			System.out.print(day+"요일");
+		System.out.println();
+	}
+
+}
+
+#10
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+   
+	public static void main(String[] args) 
+	{ 
+	
+		double score[][]= {{3.3,3.4},{3.5,3.6},{3.7,4.0},{4.1,4.2}};
+		double sum=0;
+		
+		for(int year=0;year<score.length;year++)
+			for(int term=0;term<score[year].length;term++)
+				sum+=score[year][term];
+		int n=score.length;
+		int m=score[0].length;
+		System.out.println("4년 전체 평점 평균은 "+sum/(n*m));
+	}
+
+}
+#11
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+   
+	public static void main(String[] args) 
+	{ 
+	
+		int intArray[][]=new int[4][];
+		intArray[0]=new int[3];
+		intArray[1]=new int[2];
+		intArray[2]=new int[3];
+		intArray[3]=new int[2];
+		
+		for(int i=0;i<intArray.length;i++)
+			for(int j=0;j<intArray[i].length;j++)
+				intArray[i][j]=(i+1)*10+j;
+		
+		for(int i=0;i<intArray.length;i++)
+			for(int j=0;j<intArray[i].length;j++)
+				System.out.print(intArray[i][j]+" ");
+		System.out.println();
+	}
+
+}
+#12
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+   static int[] makeArray()
+   {
+	   int temp[]=new int[4];
+		for(int i=0;i<temp.length;i++)
+			temp[i]=i;
+		return temp;
+   }
+	public static void main(String[] args) 
+	{ 
+	
+		int intArray[];
+		intArray=makeArray();
+		for(int i=0;i<intArray.length;i++)
+			System.out.print(intArray[i]+" ");
+		
+	}
+
+}
+#13
+main(string[] args) run -> runconfiguratuions ->arguments->program arguments 입력 ->run
+매개변수를 받아와서 출력 가능.
+
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+	
+	public static void main(String[] args) 
+	{ 
+	
+		System.out.println(args[0]);
+		System.out.println(args[1]);
+		System.out.println(args[2]);
+		
+	}
+
+}
+
+#14
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+	
+	public static void main(String[] args) 
+	{ 
+	
+		double sum=0.0;
+		for(int i=0;i<args.length;i++)
+			sum+=Double.parseDouble(args[i]);
+		System.out.println("합계:"+sum);
+		
+	}
+
+}
+#15
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+	
+	public static void main(String[] args) 
+	{ 
+	
+		Scanner scanner=new Scanner(System.in);
+		int dividend;
+		int divisor;
+		
+		System.out.print("나뉨수를 입력하시오:");
+		dividend=scanner.nextInt();
+		System.out.print("나눗수를 입력하시오:");
+		divisor=scanner.nextInt();
+		System.out.println(dividend+"를 "+divisor+"로 나누면 몫은 "+
+		dividend/divisor+"입니다");
+		scanner.close();
+	}
+
+}
+#16
+package day3;
+import java.util.Scanner;
+
+public class ForSample 
+{
+	
+	public static void main(String[] args) 
+	{ 
+	
+		Scanner scanner=new Scanner(System.in);
+		while(true)
+		{
+			System.out.print("나뉨수를 입력하시오:");
+			int dividend=scanner.nextInt();
+			System.out.print("나눗수를 입력하시오:");
+			int divisor=scanner.nextInt();
+			try 
+			{
+				System.out.println(dividend+"를 "+divisor+"로 나누면 몫은"+dividend/divisor+"입니다.");
+				break;
+			}
+			catch(ArithmeticException e)
+			{
+				System.out.println("0으로 나눌 수 없습니다! 다시 입력하세요");
+			}
+			
+		}
+		scanner.close();
+	}
+
+}
+
+try{예외 발생할 가능성이 있는 실행문 예외발생시 catch로 감.}
+catch(처리할 예외 타입 선언)
+{예외 처리문(catch블록)}
+finally{예외 발생 여부와 상관없이 무조건 실행되는 문장(finally블록)}
+#17
+package day3;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+public class ForSample 
+{
+	
+	public static void main(String[] args) 
+	{ 
+	   Scanner scanner=new Scanner(System.in);
+	   System.out.println("정수 3개를 입력하세요");
+	   int sum=0,n=0;
+	   for(int i=0;i<3;i++)
+	   {
+		   System.out.print(i+">>");
+	   
+	   try
+	   {
+		   n=scanner.nextInt();
+	   }
+	   catch(InputMismatchException e)
+	   {
+		   System.out.println("정수가 아닙니다.다시 입력하세요!");
+		   scanner.next();
+		   i--;
+		   continue;
+	   }
+	   sum+=n;
+	   }
+	   System.out.println("합은 "+ sum);
+	   scanner.close();
+	}
+
+}
+#18
+package day3;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+public class ForSample 
+{
+	
+	public static void main(String[] args) 
+	{
+		String[] stringNumber= {"23","12","3.141592","998"};
+		
+		int i=0;
+		try
+		{
+			for(i=0;i<stringNumber.length;i++)
+			{
+				int j=Integer.parseInt(stringNumber[i]);
+				System.out.println("숫자로 변환된 값은"+j);
+			}
+		}catch(NumberFormatException e) 
+		{
+			System.out.println(stringNumber[i]+"는 정수로 변환할 수 없습니다.");
+		}
+	}
+
+}
+
+NumberFormatException부분을 Exception으로만 바꿔도 실행이 잘 된다.(상속관계임)
+Exception이 들어간 것들의 부모클래스는 모두 Exception이다.
