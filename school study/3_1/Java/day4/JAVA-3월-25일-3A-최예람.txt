@@ -1,0 +1,351 @@
+#수업내용 필기
+/*
+	 * 객체 - 클래스 - 인스턴스 객체지향 프로그래밍 객체(클래스화,인스턴스)를 이용한 프로그래밍. 1.소스코드작성 2.컴파일 3.메인메모리에
+	 * 올리고 4.인스턴스 생성 소스코드나 필드명 등들은 hdd 에 올라가는데 (설계도/객체임) A a=new A() 했을때 클래스파일이
+	 * 메인메모리에 올라가서(주형틀/객체임) 그 주소(인스턴스/객체임)를 heap에 저장. A y=new A()
+	 * 
+	 * 상속 표현시 A(부모) <- B(자식) 로 표시한다. 자식은 부모의 자식의 존재를 알고있지만 부모는 모르고 있다. load한다는것은 하드에
+	 * 있는 데이터를 메인메모리에 올린다는것. over load는 클래스에다가 메소드를 과하게 적재했다는 의미. =>메소드들 끼리는 메소드이름으로
+	 * 구분. ( 한 클래스에 A라는 이름의 메소드는 한개만 있어야 하지만 A를 여러개 만들수있는데 매개변수가 달라짐. 같은 이름의 메소드를
+	 * 과하게 적재했다 라는 의미로 오버로드 ) ride 타다. override 과하게 타다. 상속관계에 있는 서로다른 클래스에서 한 메소드를
+	 * 동일하게 사용할때 정의(구현)를 다르게 하는것. (부모클래스와 자식클래스사이에)
+	 * 
+	 * java 한파일 안에는 public class는 하나만. 또 해당 클래스 이름과 파일명이 같아야함.
+	 * 
+	 * class안에 ㅇㅇclass와 main이 있는데 둘이 따로 존재한다고 인지하자.
+	 * 
+	 * this 인스턴스 자체의 주소. 생성된 인스턴스의 레퍼런스
+	 * 
+	 * 만약 ob1의 메모리주소가 1000이고 ob2의 메모리 주소가 3000일때 ob1=ob2 로하면 ob1의 메모리는 3000이 되면서
+	 * 1000의 인스턴스를 참조하는 레퍼런스가 0이 되고 가비지가 작동할때 가비지 컬렉터가 수거해간다.
+	 * 
+	 * 한생성자 안에서 다른생성자를 호출할때도 this 사용한다.
+	 * 이때 코드의 제일 처음에 수행.
+	 * 생성자 circle()
+	 * {
+	 *  this(null,null,0);
+	 *  print출력
+	 * }
+	 * 이런식
+	 * 
+	 * 인스턴스 배열
+	 * Circle[] c; circle타입의 인스턴스를 저장하는 배열
+	 * 
+	 * static 메소드
+	 * 인스턴스를 만들지 않고 실행할 수 있게 열어줌.
+	 * 
+	 * 
+	 */
+#1
+public class Circle 
+{
+		  int radius;
+		  String name;
+		  
+		  public Circle() {}
+		  
+		  public double getArea()
+		  {
+			  return 3.14*radius*radius;
+		  }
+		  public static void main(String[]args)
+		  {
+			  Circle pizza;
+			  pizza=new Circle();
+			  pizza.radius=10;
+			  pizza.name="자바피자";
+			  double area=pizza.getArea();
+			  System.out.println(pizza.name+"의 면적은 "+area);
+			  
+			  Circle donut=new Circle();
+			  donut.radius=2;
+			  donut.name="자바도넛";
+			  area=donut.getArea();
+			  System.out.println(donut.name+"의 면적은 "+area);
+			  
+			  
+		  }
+			
+}
+#2
+import java.util.Scanner;
+public class Rectangle
+{
+
+	int width;
+	int height;
+	public int GetArea()
+	{
+		return width*height;
+	}
+	public static void main(String[] args)
+	{
+		// TODO Auto-generated method stub
+
+		Rectangle rect=new Rectangle();
+		Scanner scanner=new Scanner(System.in);
+		System.out.print(">>");
+		
+		rect.width=scanner.nextInt();
+		rect.height=scanner.nextInt();
+		System.out.println("사각형의 면적은 "+rect.GetArea());
+		scanner.close();
+	}
+
+}
+#3
+public class Circle 
+{
+	              int radius;
+		  String name;
+		  
+		  public Circle() 
+		  {
+			  radius=1;name="";
+		  }
+		  public Circle(int r,String n)
+		  {
+			  radius=r;name=n;
+		  }
+		  public double getArea()
+		  {
+			  return 3.14*radius*radius;
+		  }
+		  public static void main(String[]args)
+		  {
+			  Circle pizza;
+			  pizza=new Circle(10,"자바피자");
+			  double area=pizza.getArea();
+			  System.out.println(pizza.name+"의 면적은 "+area);
+			  
+			  Circle donut=new Circle();
+			  donut.name="도넛피자";
+			  area=donut.getArea();
+			  System.out.println(donut.name+"의 면적은 "+area);
+			  
+			  
+		  }
+	 
+			
+}
+#4
+public class Book 
+{
+	String title;
+	String author;
+
+	public Book(String t) 
+	{
+		title = t;
+		author = "작자미상";
+	}
+
+	public Book(String t, String a) 
+	{
+		title = t;
+		author = a;
+	}
+
+	public static void main(String[] args) 
+	{
+		Book littlePrince = new Book("어린왕자", "생텍쥐페리");
+		Book loveStory = new Book("춘향전");
+		System.out.println(littlePrince.title + " " + littlePrince.author);
+		System.out.println(loveStory.title + " " + loveStory.author);
+	}
+}
+
+#5
+public class Circle 
+{
+	int radius;
+
+	public Circle(int radius) 
+	{
+		this.radius = radius;
+	}
+
+	public void set(int radius) 
+	{
+		this.radius = radius;
+	}
+
+	public static void main(String[] args) 
+	{
+
+		Circle ob1 = new Circle(1);
+		Circle ob2 = new Circle(2);
+		Circle ob3 = new Circle(3);
+
+		ob1.set(4);
+		ob2.set(5);
+		ob3.set(6);
+	}
+
+}
+#6
+
+
+public class Book 
+{
+	String title;
+	String author;
+
+	void show() {System.out.println(title+" "+author);}
+	
+	public Book()
+	{
+		this("","");
+		System.out.println("생성자 호출");
+	}
+	public Book(String title) 
+	{
+		this(title,"작자미상");
+	}
+
+	public Book(String title, String author) 
+	{
+		this.title=title;
+		this.author=author;
+	}
+
+	public static void main(String[] args) 
+	{
+		Book littlePrince = new Book("어린왕자", "생텍쥐페리");
+		Book loveStory = new Book("춘향전");
+		Book emptyBook=new Book();
+		loveStory.show();
+	}
+}
+#7
+class Circle
+{
+	int radius;
+
+	public Circle(int radius) 
+	{
+		this.radius = radius;
+	}
+    public double getArea()
+    {
+    	return 3.14*radius*radius;
+    }
+}
+
+public class CircleArray2
+{
+	public static void main(String[] args)
+	{
+		Circle[] c;
+		c=new Circle[5];
+		for(int i=0;i<c.length;++i)
+		{
+			c[i]=new Circle(i);
+		}
+		for(int i=0;i<c.length;++i)
+		{
+			System.out.println((int)(c[i].getArea())+" ");
+		}
+	}
+}
+
+#8
+import java.util.Scanner;
+class Book2
+{
+	String title,author;
+	public Book2(String title,String author)
+	{
+		this.title=title;
+		this.author=author;
+	}
+}
+public class BookArray 
+{
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+        Book2[] book=new Book2[2];
+        Scanner scanner=new Scanner(System.in);
+        for(int i=0;i<book.length;++i)
+        {
+        	System.out.print("제목:>>");
+        	String title=scanner.nextLine();
+        	System.out.print("저자>>");
+        	String author=scanner.nextLine();
+        	
+        	book[i]=new Book2(title,author);
+        }
+        for(int i=0;i<book.length;++i)
+        {
+        	System.out.print("("+book[i].title+","+book[i].author+")");
+        }
+        scanner.close();
+	}
+
+}
+
+#9
+
+public class ArrayParameterEx 
+{
+
+	static void replaceSpace(char a[])
+	{
+		for(int i=0;i<a.length;++i)
+		{
+			if(a[i]==' ')
+				a[i]=',';
+		}
+	}
+	static void printCharArray(char a[])
+	{
+		for(int i=0;i<a.length;++i)
+		{
+			System.out.print(a[i]);
+		}
+		System.out.println();
+	}
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+
+		char c[]= {'T','h','i','s',' ','i','s',' ','a',' ','p','e','n','c','i','l','.'};
+		printCharArray(c);
+		replaceSpace(c);
+		printCharArray(c);
+	}
+
+}
+
+#10
+
+public class MethodSample 
+{
+
+	public int getSum(int i,int j)
+	{
+		return i+j;
+	}
+	public int getSum(int i,int j,int k)
+	{
+		return i+j+k;
+	}
+	public int double getSum(double i,double j)
+	{
+		return i+j;
+	}
+	
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+	    MethodSample a=new MethodSample();
+	    int i=a.getSum(1, 2);
+	    int j=a.getSum(1, 2, 3);
+	    double k=a.getSum(1.1,2.2);
+
+	}
+
+}
+
