@@ -1,0 +1,234 @@
+#1
+public class ForSample 
+{
+	public static void main(String[] args)
+	{
+		String a=new String("Good");
+		String b=new String("Bad");
+		String c=new String("Normal");
+		String d,e;
+		a=null;
+		d=c;
+		c=null;
+	}
+	
+}
+#2 접근지정자
+class Sample
+{
+	public int a;
+	private int b;
+	int c;
+}
+public class AccessEx
+{
+	public static void main(String[] args)
+	{
+		Sample aClass=new Sample();
+		aClass.a=10;
+		aCalss.b=10;
+		aCalss.c=10;
+	}
+}
+	
+
+#3 static
+class staticsample
+{
+    	public int n;
+    	public void g()
+    	{
+    		m=20;
+    	}
+    	
+            public void h()
+            {
+                        m=30;
+            }
+            public static int m;
+    	public static void f()
+    	{
+    		m=5;
+    	}
+}
+public class ex
+{
+    	public static void main(String[] arg)
+    	{
+    		staticsample s1,s2;
+    		s1=new staticsample();
+    		s1.n=5;
+    		s1.g();
+    		s1.m=50;
+    		s2=new staticsample();
+    		s2.n=8;
+    		s2.h();
+    		s2.f();
+    		System.out.println(s1.m);
+    	}
+}
+
+#4
+public class ForSample 
+{
+	 class staticsample
+	    {
+	    	public int n;
+	    	public void g()
+	    	{
+	    		m=20;
+	    	}
+                        public void h()
+                        {
+                                   m=30;
+                        }
+	    	public static int m;
+	    	public static void f()
+	    	{
+	    		m=5;
+	    	}
+	    }
+	    public class ex
+	    {
+	    	public static void main(String[] arg)
+	    	{
+	          staticsample.m=10;
+	          staticsample s1;
+	          s1 =new staticsample();
+	          System.out.println(s1.m);
+	          s1.f();
+	          staticsample.f();
+	    	}
+	    }
+	
+}
+#5
+class Calc
+{
+	public static int abs(int a) {return a>0?a:-a;}
+	public static int max(int a,int b) {return (a>b)?a:b;}
+	public static int min(int a,int b) {return (a>b)?b:a;}
+ }
+public class ForSample
+{
+	public static void main(String[] args)
+	{
+	 System.out.println(Calc.max(10, 8));
+	 System.out.println(Calc.min(-3, -8));
+	}
+}
+#6
+import java.util.Scanner;
+class CurrencyConverter
+{
+	private static double rate;
+	public static double toDollar(double won)
+	{
+		return won/rate;
+	}
+	public static double toKWR(double dollar)
+	{
+	    return dollar*rate;
+	}
+	public static void setRate(double r)
+	{
+		rate=r;
+	}
+}
+public class ForSample
+{
+	public static void main(String[] args)
+	{
+		Scanner scanner=new Scanner(System.in);
+		System.out.print("환율(1달러)>>");
+		double rate = scanner.nextDouble();
+		CurrencyConverter.setRate(rate);
+		System.out.println("백만원은 $"+CurrencyConverter.toDollar(1000000)+"입니다");
+		System.out.println("$100는"+CurrencyConverter.toKWR(100)+"원 입니다");
+	            scanner.close();	
+	}
+}
+#7
+class Point
+{
+	private int x,y;
+	public void set(int x,int y)
+	{
+		this.x=x;
+		this.y=y;
+	}
+	public void showPoint()
+	{
+		System.out.println("("+x+","+y+")");
+	}
+}
+class ColorPoint extends Point
+{
+	private String color;
+	public void setColor(String color)
+	{
+		this.color=color;
+	}
+	public void showColorPoint()
+	{
+		System.out.print(color);
+		showPoint();
+	}
+}
+
+public class ForSample
+{
+	public static void main(String [] args)
+	{
+		Point p=new Point();
+		p.set(1, 2);
+		p.showPoint();
+		
+		ColorPoint cp=new ColorPoint();
+		cp.set(3, 4);
+		cp.setColor("red");
+		cp.showColorPoint();
+	}
+}
+#8
+class Point
+{
+	private int x,y;
+	public void set(int x,int y)
+	{
+		this.x=x;
+		this.y=y;
+	}
+	public void showPoint()
+	{
+		System.out.println("("+x+","+y+")");
+	}
+}
+class ColorPoint extends Point
+{
+	private String color;
+	public void setColor(String color)
+	{
+		this.color=color;
+	}
+	public void showColorPoint()
+	{
+		System.out.print(color);
+		showPoint();
+	}
+}
+
+public class ForSample
+{
+	public static void main(String [] args)
+	{
+		Point p=new Point();
+		p.set(1, 2);
+		p.showPoint();
+		
+		ColorPoint cp=new ColorPoint();
+		cp.set(3, 4);
+		cp.setColor("red");
+		cp.showColorPoint();
+	}
+}
